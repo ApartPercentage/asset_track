@@ -1,0 +1,59 @@
+{% extends 'partials/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Borrow Page {% endblock %}
+
+{% block content %}
+
+{% include 'partials/topside.html' %}
+
+ 
+
+{% if form.errors %} 
+    <div class="alert alert-danger"> {% for field in form %}
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %} 
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-info btn-block" type="submit" value="Make Request">
+    </form>
+</div>
+
+<div class="row my-4">
+    <div class="col-md-12">
+        <table class="table bg-white">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th scope="col">Registration Number</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Borrowed by</th>
+                    <th scope="col">Date Borrowed</th>
+                    <th scope="col">Date Returned</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for all_assets in all_assets %}
+                    {% for all_assets in all_assets %}  
+                    <tr>
+                        <td>{{ all_assets.asset.name }}</td>
+                        <td>{{ all_assets.asset.description }}</td>
+                        <td>{{ all_assets.asset.serial_number }}</td>
+                        <td>{{ all_assets.asset.category }}</td>
+                        <td>{{ all_assets.staff_member }}</td>
+                        <td>{{ all_assets.date_borrowed }}</td>
+                        <td>{{ all_assets.date_returned }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
