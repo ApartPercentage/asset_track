@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'isntrack.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': 'mydatabase', # Customize if desired (but will become irrelevant soon) 
         #'USER': 'mydatabaseuser', # Same (not actually used soon)
         #'PASSWORD': 'mypassword', #  Same (not actually used soon) 
