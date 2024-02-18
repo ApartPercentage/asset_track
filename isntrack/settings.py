@@ -21,10 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@4cv(=@o05+ny$y2-_d@fq-&c=&9cppr#(w9zr)n-$zyzh70dk' 
+#SECRET_KEY = '@4cv(=@o05+ny$y2-_d@fq-&c=&9cppr#(w9zr)n-$zyzh70dk' 
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '@4cv(=@o05+ny$y2-_d@fq-&c=&9cppr#(w9zr)n-$zyzh70dk')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+#DEBUG = False
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = []
 
@@ -80,14 +82,13 @@ WSGI_APPLICATION = 'isntrack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
         #'ENGINE': 'django.db.backends.postgresql',
         #'NAME': 'mydatabase', # Customize if desired (but will become irrelevant soon) 
         #'USER': 'mydatabaseuser', # Same (not actually used soon)
         #'PASSWORD': 'mypassword', #  Same (not actually used soon) 
         #'HOST': '127.0.0.1',
         #'PORT': '5432',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
