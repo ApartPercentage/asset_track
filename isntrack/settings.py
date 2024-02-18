@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '@4cv(=@o05+ny$y2-_d@fq-&c=&9cp
 #DEBUG = False
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['asset-track.onrender.com']
+ALLOWED_HOSTS = ['asset-track.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
