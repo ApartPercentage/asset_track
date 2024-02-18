@@ -1,1 +1,1 @@
-web: gunicorn isntrack.wsgi:app
+web: gunicorn isntrack.wsgi:application
