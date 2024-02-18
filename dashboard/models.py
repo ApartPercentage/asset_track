@@ -40,7 +40,7 @@ class Assets(models.Model):
 class BorrowTransaction(models.Model):
     asset = models.ForeignKey(Assets, on_delete=models.CASCADE)
     staff_member = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_borrowed = models.DateField()
+    date_borrowed = models.DateField(auto_now=True)
     date_returned = models.DateField(null=True, blank = True)
     
     def __str__(self):

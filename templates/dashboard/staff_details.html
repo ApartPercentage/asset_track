@@ -6,7 +6,28 @@
 <div class="row my-4">
     <div class="col-md-4"></div>
     <div class="col-md-8">
-        
+        <table class="table bg-white">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Registration Number</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Date borrowed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for items_borrowed in items_borrowed %}
+                <tr>
+                    <td>{{ items_borrowed.asset.category }}</td>
+                    <td>{{ items_borrowed.asset.name }}</td>
+                    <td>{{ items_borrowed.asset.description }}</td>
+                    <td>{{ items_borrowed.asset.serial_number }}</td>
+                    <td>{{ items_borrowed.date_borrowed }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 

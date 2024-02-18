@@ -11,6 +11,11 @@ class BorrowForm(forms.ModelForm):
         model = BorrowTransaction
         fields = ['asset']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        #self.fields['asset'].queryset = Assets.objects.filter(is_available=True).order_by('name')
+        self.fields['asset'].queryset = Assets.objects.all().order_by('name')
+
     def clean_asset(self):
         item = self.cleaned_data.get('asset')
         if not item.is_available:

@@ -40,9 +40,13 @@ def staff(request):
 @login_required(login_url='user-login')
 def staff_details(request, pk):
     workers = User.objects.get(id=pk)
+    items_borrowed = BorrowTransaction.objects.all().filter(date_returned=None)
+    items_borrowed = items_borrowed.filter(staff_member=workers)
     context = {
-        'workers': workers
+        'workers': workers,
+        'items_borrowed': items_borrowed
     }
+
     return render(request, 'dashboard/staff_details.html', context)
 
 @login_required(login_url='user-login')
