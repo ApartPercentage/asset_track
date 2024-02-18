@@ -133,7 +133,7 @@ def assets_borrow(request):
         form = BorrowForm()
     #all_assets = BorrowTransaction.objects.all()
     all_assets = {}
-    for transaction in BorrowTransaction.objects.all().order_by('-date_returned'):  
+    for transaction in BorrowTransaction.objects.all().order_by('asset__category', '-date_returned'):  
         asset_name = transaction.asset.name
         if asset_name not in all_assets:
             all_assets[asset_name] = [] 
