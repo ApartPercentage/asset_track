@@ -87,10 +87,10 @@
         assetChart = new Chart(ctx, {
             type: 'bar', // Or your preferred chart type
             data: {
-            labels: ['Total Assets', 'Borrowed (Unreturned)'], 
+            labels: ['Total Assets', 'Available Assets', 'Borrowed (Unreturned)'], 
             datasets: [{ 
                 label: 'Asset Data', // Update if you'd like
-                data: [data.total_assets, data.borrowed_unreturned_assets], 
+                data: [data.total_assets, data.available_assets, data.borrowed_unreturned_assets], 
                 // ... (customization - colors etc.)
             }]
             },

@@ -23,7 +23,7 @@ CATEGORY = (
 
     
 class Assets(models.Model):
-    name = models.CharField(max_length = 100, null = True)
+    name = models.CharField(max_length = 100, null = True, verbose_name="Registration Number")
     category = models.CharField(max_length = 100, choices=CATEGORY, null = True)
     description = models.CharField(max_length=200, null = True)
     serial_number = models.CharField(max_length = 100, null = True)
@@ -42,6 +42,7 @@ class BorrowTransaction(models.Model):
     staff_member = models.ForeignKey(User, on_delete=models.CASCADE)
     date_borrowed = models.DateField(auto_now=True)
     date_returned = models.DateField(null=True, blank = True)
+    
     
     def __str__(self):
         return f'{self.staff_member.username}-{self.asset}'

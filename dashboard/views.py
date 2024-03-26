@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Case, When, Value, BooleanField, Count, Q
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 @login_required(login_url='user-login')
@@ -93,10 +94,12 @@ def calculate_chart_data(request):
         date_returned=None,
         asset__in=data
     ).count()
+    available_assets = data.filter(is_available=True).count()
 
     return JsonResponse({
         'total_assets': total_assets,
         'borrowed_unreturned_assets': borrowed_unreturned_assets,
+        'available_assets': available_assets,
     })
 
 
@@ -118,15 +121,29 @@ def assets_borrow(request):
     if request.method=='POST':
         form = BorrowForm(request.POST)
         if form.is_valid():
-            asset = form.cleaned_data['asset']
-            registration_number = asset.name
+            selected_assets = form.cleaned_data['asset']
+
+            for a in selected_assets:
+                registration_number = a.name
+                item = Assets.objects.get(name=registration_number, is_available=True)  
+                BorrowTransaction.objects.create(asset=item, staff_member=request.user)
+                item.is_available = False
+                item.save()
+            ###asset = form.cleaned_data['asset']
+            return redirect('dashboard-index')
+        else:  # Add this 'else' block to display the form's error messages
+            context = {
+                'form': form, 
+                'all_assets': {}
+            }
+            return render(request, 'dashboard/assets_borrow.html', context) 
             #dateborrowed = form.cleaned_data['date_borrowed']
         #try:
-            item = Assets.objects.get(name=registration_number, is_available=True)
-            BorrowTransaction.objects.create(asset=item, staff_member=request.user)
-            item.is_available = False
-            item.save()
-            return redirect('dashboard-index')        
+            ##item = Assets.objects.get(name=registration_number, is_available=True)
+            ##BorrowTransaction.objects.create(asset=item, staff_member=request.user)
+            ##item.is_available = False
+            ##item.save()
+            ##return redirect('dashboard-index')        
         #except Assets.DoesNotExist:
         #    form.add_error(None, 'Asset not found or unavailable')   
     else:
